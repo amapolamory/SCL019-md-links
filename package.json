@@ -3,5 +3,17 @@
   "version": "0.1.0",
   "engines": {
     "node": ">=14.x"
+  },
+  "devDependencies": {
+    "jest": "^27.5.1"
+  },
+  "scripts": {
+    "test": "jest"
+  },
+  "dependencies": {
+    "command-path": "^1.0.6",
+    "common-js": "^0.3.8",
+    "lesca-cdn-path": "^2.0.6",
+    "unrelative": "^1.0.0"
   }
 }

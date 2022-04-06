@@ -1,5 +1,4 @@
-//  module.exports = () => {
-// };
+
 const path = require("path");
 const fs = require("fs");
 const main = require("./main");
@@ -16,9 +15,25 @@ rlInterface.question(`Ingresa tu ruta: \n`, function (route) {
     let answer = route;//ruta que ingresa el usuario
     console.log('Tu ruta es:' + answer);
 
-    if(main.extensionValid(answer)){
+    if (main.existence(answer)) {
+        answer = main.relToAbs(answer);
+        console.log('La ruta absoluta es' + answer);
+    }
+    else {
+        console.log('La ruta no existe')
+    };
+
+
+    if (main.extensionValid(answer)) {
         main.fileValid(answer)
     }
+    else{
+        console.log('El documento no es valido')
+    };
+
+
+
+
 })
 
 

@@ -24,6 +24,10 @@ rlInterface.question(`Ingresa tu ruta: \n`, function (route) {
         console.log('La ruta no existe');
     }
 
+    if(main.isFile(answer)){
+        console.log('La ruta es un archivo')
+    }
+  
 
     if (main.extensionValid(answer)) {
         main.fileValid(answer)
@@ -34,8 +38,8 @@ rlInterface.question(`Ingresa tu ruta: \n`, function (route) {
 
 
 
-
-})
+rlInterface.close()
+});
 
 
 

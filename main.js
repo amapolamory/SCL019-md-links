@@ -9,6 +9,7 @@ const existence = (answer) => existsSync(answer);
 // transforma la ruta relativa a absoluta
 const relToAbs = (answer) => (path.isAbsolute(answer) ? answer : path.resolve(answer));
 
+const isFile = (answer) => lstatSync(answer).isFile();
 //funcion para validar que  la extension del documento sea .md
 const extensionValid = (router) => {
     const ext = path.extname(router.toLowerCase());
@@ -37,7 +38,7 @@ const getLinks = (file, userPath) => {
         const line = lines[i];
         const regularEx = /\[([^\]]+)]\((https?:\/\/[^\s)]+)\)/g;
         const links = line.matchAll(regularEx);
-        const match = regularEx.test(line);
+        const match = regularEx.test(line);// test Prueba una coincidencia en una cadena. Devuelve true o false.
         if (match) {
             for (const link of links) {
                 const data = {
@@ -61,7 +62,7 @@ exports.extensionValid = extensionValid;
 exports.fileValid = fileValid;
 exports.getLinks = getLinks;
 exports.existence = existence;
-// exports.file = file;
+exports.isFile = isFile;
 
 
 

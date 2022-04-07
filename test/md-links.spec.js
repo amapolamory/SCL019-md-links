@@ -13,7 +13,7 @@ it('devuelve true si el path es existente',  () =>{
 })
 it('devuelve false si el path no existe', () => {
     console.log(try3);
-    console.log(main.existence(try2))
+    console.log(main.existence(try3))
     expect(main.existence(try3)).toBe(false);
 })
 });
@@ -34,4 +34,17 @@ describe('La función convertPath', () => {
     });
 
   });
+
+  //funcion que testea la extension del archivo
+  describe('la funcion extensionValid',  () => {
+    it('devuelve true si la extension de la ruta es md',  () =>{
+        console.log(try1);
+        expect(main.existence(try1)).toBe(true);
+    });
+    it('devuelve false si la ruta no es md', () => {
+        console.log(try2);
+        console.log(main.extensionValid(try2))
+        expect(main.extensionValid(try2)).toBe(false);
+    })
+    });
 

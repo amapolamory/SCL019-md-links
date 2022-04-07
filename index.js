@@ -19,9 +19,10 @@ rlInterface.question(`Ingresa tu ruta: \n`, function (route) {
         answer = main.relToAbs(answer);
         console.log('La ruta absoluta es' + answer);
     }
-    else {
-        console.log('La ruta no existe')
-    };
+  
+    else{
+        console.log('La ruta no existe');
+    }
 
 
     if (main.extensionValid(answer)) {

@@ -1,7 +1,9 @@
 const index = require('./index.js')
 const fs = require('fs');//permite usar las funciones  de filesistem
 const path = require('path');
-
+const http = require('http');
+const url = require('url');
+const fetch = require('node-fetch');
 let { lstatSync, existsSync } = require('fs');
 
 //verifica si existe la ruta ingresada
@@ -17,6 +19,7 @@ const extensionValid = (router) => {
         return true;
     } else {
         console.log("No es un archivo md");
+        return false;
     }
 };
 //funcion para validar el documento
@@ -56,6 +59,20 @@ const getLinks = (file, userPath) => {
 
 };
 
+const validateLink = (arrayLinks) =>{
+    let validated = arrayLinks.map((arrayLinks) => //devuelve array nueva, calls a function once for each element in an array.
+      fetch(arrayLinks.href).then((response)=> {
+        return {
+          status: response.status,
+          statusText: response.statusText,
+        };
+      })
+    );
+
+    
+    return Promise.all(validated);  //funciona sólo con arreglos.
+  };
+
 
 exports.relToAbs = relToAbs;
 exports.extensionValid = extensionValid;
@@ -63,6 +80,7 @@ exports.fileValid = fileValid;
 exports.getLinks = getLinks;
 exports.existence = existence;
 exports.isFile = isFile;
+exports.validateLink = validateLink;
 
 
 

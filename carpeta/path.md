@@ -1,4 +1,3 @@
 * [Arreglos](https://curriculum.laboratoria.la/es/topics/javascript/04-arrays)
-  <details><summary>Links</summary><p>
-  * [Promise - MDN](https://developer.mozilla.org/es/docs/Web/JavaScript/Reference/Global_Objects/Promise)
-  * [How to Write a JavaScript Promise - freecodecamp (en inglés)](https://www.freecodecamp.org/news/how-to-write-a-javascript-promise-4ed8d44292b8/)
+ 
+ [spotify](http://www.spotiiiiiify.com/error/es)

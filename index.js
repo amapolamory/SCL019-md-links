@@ -36,19 +36,19 @@ rlInterface.question(`Ingresa tu ruta: \n`, function (route) {
         console.log('El documento no es valido')
     };
 
-    if (main.validateLink(answer)){
-        if (response.status == 200){
-            console.log('ok');
-        }
+    
 
-    }
+    
+
+    
+
 
  
 
 
 
 rlInterface.close()
-});
+})
 
 
 

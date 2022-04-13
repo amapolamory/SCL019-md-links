@@ -3,7 +3,6 @@ const fs = require('fs');//permite usar las funciones  de filesistem
 const path = require('path');
 const http = require('http');
 const url = require('url');
-const fetch = require('node-fetch');
 let { lstatSync, existsSync } = require('fs');
 
 //verifica si existe la ruta ingresada
@@ -51,27 +50,50 @@ const getLinks = (file, userPath) => {
                     line: i + 1,
                 };
                 arrayLinks.push(data);
+                 validateLinks(data.href) //Ejecuta funcion anidada
+
             }
             console.log(arrayLinks)
         }
     }
     return arrayLinks;
 
-};
+}
 
-const validateLink = (arrayLinks) =>{
-    let validated = arrayLinks.map((arrayLinks) => //devuelve array nueva, calls a function once for each element in an array.
-      fetch(arrayLinks.href).then((response)=> {
-        return {
-          status: response.status,
-          statusText: response.statusText,
+function validateLinks(link) {
+    return new Promise((resolve) => {
+        const options = {
+            method: 'HEAD',//El método HEAD pide una respuesta idéntica a la de una petición GET,(solicita una representación de un recurso específico.) pero sin el cuerpo de la respuesta.
+            host: url.parse(link).host,
+            port: 80,
+            path: url.parse(link).pathname,
         };
-      })
-    );
+        const req = http.request(options, (res) => {
+            const nuevaData = {
+                linkname: link,
+                Code: res.statusCode,
+                status: res.statusCode <= 399,
+            };
+            console.log(`statusCode: ${res.statusCode}`)
+            resolve(nuevaData);
+        })
 
-    
-    return Promise.all(validated);  //funciona sólo con arreglos.
-  };
+        req.on('error', (error) => {
+            console.error(error);
+            const newData = {
+                linkname: link,
+                status: false,
+            };
+            resolve(newData);
+        });
+        req.end()
+    })
+}
+
+
+
+
+
 
 
 exports.relToAbs = relToAbs;
@@ -80,7 +102,7 @@ exports.fileValid = fileValid;
 exports.getLinks = getLinks;
 exports.existence = existence;
 exports.isFile = isFile;
-exports.validateLink = validateLink;
+exports.validateLinks = validateLinks;
 
 
 

@@ -9,12 +9,13 @@
   },
   "scripts": {
     "test": "jest --coverage --verbose"
-    
   },
   "dependencies": {
     "command-path": "^1.0.6",
     "common-js": "^0.3.8",
     "lesca-cdn-path": "^2.0.6",
-    "unrelative": "^1.0.0"
+    "node-fetch": "^2.6.7",
+    "unrelative": "^1.0.0",
+    "yargs": "^17.4.1"
   }
 }

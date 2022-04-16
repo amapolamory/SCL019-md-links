@@ -4,6 +4,10 @@ const path = require('path');
 const http = require('http');
 const url = require('url');
 let { lstatSync, existsSync } = require('fs');
+const fetch = require('node-fetch')
+
+
+const userPath = process.argv[2];
 
 //verifica si existe la ruta ingresada
 const existence = (answer) => existsSync(answer);
@@ -50,7 +54,7 @@ const getLinks = (file, userPath) => {
                     line: i + 1,
                 };
                 arrayLinks.push(data);
-                 validateLinks(data.href) //Ejecuta funcion anidada
+                //  validateLinks(data.href) //Ejecuta funcion anidada
 
             }
             console.log(arrayLinks)
@@ -60,35 +64,75 @@ const getLinks = (file, userPath) => {
 
 }
 
-function validateLinks(link) {
-    return new Promise((resolve) => {
-        const options = {
-            method: 'HEAD',//El método HEAD pide una respuesta idéntica a la de una petición GET,(solicita una representación de un recurso específico.) pero sin el cuerpo de la respuesta.
-            host: url.parse(link).host,
-            port: 80,
-            path: url.parse(link).pathname,
-        };
-        const req = http.request(options, (res) => {
-            const nuevaData = {
-                linkname: link,
-                Code: res.statusCode,
-                status: res.statusCode <= 399,
-            };
-            console.log(`statusCode: ${res.statusCode}`)
-            resolve(nuevaData);
-        })
+// function validateLinks(link) {
+//     return new Promise((resolve) => {
+//         const options = {
+//             method: 'HEAD',//El método HEAD pide una respuesta idéntica a la de una petición GET,(solicita una representación de un recurso específico.) pero sin el cuerpo de la respuesta.
+//             host: url.parse(link).host,
+//             port: 80,
+//             path: url.parse(link).pathname,
+//         };
+//         const req = http.request(options, (res) => {
+//             const nuevaData = {
+//                 linkname: link,
+//                 Code: res.statusCode,
+//                 status: res.statusCode <= 399,
+//             };
+//             console.log(`statusCode: ${res.statusCode}`)
+//             resolve(nuevaData);
+//         })
 
-        req.on('error', (error) => {
-            console.error(error);
-            const newData = {
-                linkname: link,
-                status: false,
-            };
-            resolve(newData);
-        });
-        req.end()
-    })
-}
+//         req.on('error', (error) => {
+//             console.error(error);
+//             const newData = {
+//                 linkname: link,
+//                 status: false,
+//             };
+//             resolve(newData);
+//         });
+//         req.end()
+//     })
+    
+// }
+
+const validateLinks = (links) => {
+    const validate = links.map((link) =>
+      fetch(link.href).then((response) => {
+        return {
+          text: link.text,
+          href: link.href,
+          file: link.file,
+          line: link.line,
+          status: response.status,
+          statusText: response.statusText,
+          linkname: link,
+         Code: res.statusCode,   
+         status: res.statusCode <= 399,
+        };
+        
+      })
+    
+    );
+    return Promise.all(validate);
+
+
+ 
+  };
+
+ const mdLinks = (files, option) => {
+    return new Promise((resolve, reject) => {
+      const links = fileValid(files);
+      if (option.validate) {
+        resolve(validateLinks(links));
+      
+ 
+      } else {
+        resolve(links);
+        console.log(`statusCode: ${response.statusCode}`)
+      }
+      reject(new TypeError('error'));
+    });
+  };
 
 
 
@@ -103,6 +147,7 @@ exports.getLinks = getLinks;
 exports.existence = existence;
 exports.isFile = isFile;
 exports.validateLinks = validateLinks;
+exports.mdLinks = mdLinks;
 
 
 

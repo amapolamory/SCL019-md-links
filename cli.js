@@ -1,31 +1,10 @@
-const {mdLink} = require ('./index.js');
-const readline = require('readline');
-const process = require('process');
 
 
-console.log('--------------------Bienvenido--------------------');
+import { mdLinks } from './index.js';
 
-//const option es un objeto ya que  va a guardar
-let args = process.argv;
+import Yargs from "yargs";
 
-const list = {};
-let path = '';
+const path = process.argv[2];
+const option = Yargs(process.argv.slice(2)).argv;
 
-if (args.some((x) => x === '--validate')) {
-  list.validate = true;
-}
-if (args.some((x) => x === '--stats')) {
-  list.stats = true;
-}
-
-
-  if (val[0] === 'mdLink') {
-    path = val[1];
-  } else {
-    path = val[2];
-  }
-  mdLink(path, list).then(() => {
-    console.log();
-  }).catch((err) => {
-    console.log(err.message);
-  });
+mdLinks(path, option).then((results) => console.table(results));

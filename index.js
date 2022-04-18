@@ -1,62 +1,85 @@
-
-const path = require("path");
-const fs = require("fs");
 const main = require("./main");
+let links = []
 
 
+ const mdLinks = (path,options) => {
 
+  let totalLinks = 0;
+  let linksOk = 0;
+  let linkBroken =0;
+  let arraylink = [];
 
-const readline = require('readline');
+  return new Promise((resolve) => {
+    
+    if(main.existence(path)){
 
-let rlInterface = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout
-});
+      path = main.relToAbs(path);
 
-rlInterface.question(`Ingresa tu ruta: \n`, function (route) {
-    let answer = route;//ruta que ingresa el usuario
-    console.log('Tu ruta es:' + answer);
+      if(main.isFile(path)){
 
-    if (main.existence(answer)) {
-        answer = main.relToAbs(answer);
-        console.log('La ruta absoluta es' + answer);
-    }
-  
-    else{
-        console.log('La ruta no existe');
-    }
+        if(main.extensionValid(path)){
 
-    if(main.isFile(answer)){
-        console.log('La ruta es un archivo')
-    }
-  
-
-    if (main.extensionValid(answer)) {
-        main.fileValid(answer)
-    }
-    else{
-        console.log('El documento no es valido')
-    };
+         const data = main.readFile(path);
+         main.getLinks(data,path)
+         .then((arrayLinks) => {
+          totalLinks = arrayLinks.length
+          
+          arrayLinks.forEach(element => {
+            links.push(element.href)
+          });
 
     
+            const promiseArr = links.map((url) => main.validateLinks(url).then((status) => {
+              arraylink.push(status);
 
-    
+              if(options.validate && !options.stats ){
+              console.log('Link : ', status.linkname, )
+              console.log('Status Code : ', status.Code)
+              if(status.status){
+              console.log('Status: OK ','\n')
+              }else{
+              console.log('Status: NOTFOUND ', '\n')
+                  } 
+                }
 
-    
-
-
- 
-
-
-
-rlInterface.close()
-})
-
-
-
-
-
-
-
+            })
+              .catch((err) => {
+                console.log('La ruta  no existe'.bgRed);
+                console.log(err);
+              }));
+            return Promise.all(promiseArr);
 
 
+
+          }).then(() => {
+            if(!options.validate && options.stats ){
+              arraylink.forEach(element => {
+                   if(element.status){
+                     linksOk++
+                   }else{
+                     linkBroken++
+                   }
+               });
+
+               console.log('Links Correctos : ', linksOk)
+               console.log('Links Rotos : ', linkBroken)
+            }
+          })
+
+        }else{
+          console.log('No es una archivo .md')
+        }
+      }else{
+        console.log('No es una archivo')
+      }
+
+    }else{
+      console.log('La ruta no existe')
+    }
+
+
+  });
+};
+
+
+exports.mdLinks = mdLinks;

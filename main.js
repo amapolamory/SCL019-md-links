@@ -57,6 +57,8 @@ const getLinks = (file, userPath) => {
                   };
                   arrayLinks.push(data); // se suma al arreglo de links
                   resolve(arrayLinks)
+                //   console.table(arrayLinks)
+                
                  
               }
           }
@@ -79,7 +81,9 @@ function validateLinks(link) {
           Code: res.statusCode,
           status: res.statusCode,
         };
+
         resolve(nuevaData); 
+   
       })
   
       req.on('error', (error) => {
@@ -88,8 +92,10 @@ function validateLinks(link) {
           status: false,
         };
         resolve(newData);
+    
       });
       req.end()
+     
     })
   }
 

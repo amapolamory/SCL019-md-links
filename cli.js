@@ -1,4 +1,6 @@
 const {mdLinks } = require ('./index.js');
+const main = require('./main.js')
+const index = require('./index.js')
 var args = process.argv;
 
 // console.log('hola', args);
@@ -13,7 +15,8 @@ if (args.some((x) => x === '--validate')) {
   }
   if (args.some((x) => x === '--stats')) {
     options.stats = true;
-  }
+  }  
+  
   if (args[0] === 'mdLink') {
     path = args[1];
   } else {
@@ -24,3 +27,4 @@ if (args.some((x) => x === '--validate')) {
   }).catch((err)=>{
     console.log(err);
   });
+ 

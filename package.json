@@ -1,6 +1,7 @@
 {
-  "name": "md-links",
+  "name": "md-links-amapola",
   "version": "0.1.0",
+  "description": "modulo que permite validar links de un archivo",
   "engines": {
     "node": ">=14.x"
   },

@@ -27,18 +27,21 @@ let links = []
           arrayLinks.forEach(element => {
             links.push(element.href)
           });
+    
 
     
             const promiseArr = links.map((url) => main.validateLinks(url).then((status) => {
               arraylink.push(status);
+            //   console.table(arraylink);
+           
 
               if(options.validate && !options.stats ){
-              console.log('Link : ', status.linkname, )
-              console.log('Status Code : ', status.Code)
+            //   console.log('Link : ', status.linkname, )
+            //   console.log('Status Code : ', status.Code)
               if(status.status){
-              console.log('Status: OK ','\n')
+            status.status='ok';
               }else{
-              console.log('Status: NOTFOUND ', '\n')
+              status.status='fail;'
                   } 
                 }
 
@@ -48,10 +51,12 @@ let links = []
                 console.log(err);
               }));
             return Promise.all(promiseArr);
+           
 
 
 
           }).then(() => {
+              console.table(arraylink)
             if(!options.validate && options.stats ){
               arraylink.forEach(element => {
                    if(element.status){
@@ -76,7 +81,7 @@ let links = []
     }else{
       console.log('La ruta no existe')
     }
-
+   
 
   });
 };

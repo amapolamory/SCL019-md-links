@@ -34,6 +34,15 @@ const mdLinks = (path, options) => {
               const promiseArr = links.map((url) => main.validateLinks(url).then((status) => {
                 arraylink.push(status);
 
+                const busqueda = arraylink.reduce((acc, arraylink) => {
+                  acc[arraylink.linkname] = ++acc[arraylink.linkname] || 0;
+                  return acc;
+                }, {});
+                
+                 duplicados = arraylink.filter( (arraylink) => {
+                  return busqueda[arraylink.linkname];
+                });
+
                 if (options.validate && !options.stats) {
       
                   if (status.status) {
@@ -60,15 +69,6 @@ const mdLinks = (path, options) => {
               }
               if (!options.validate && options.stats) {
 
-                const busqueda = arraylink.reduce((acc, arraylink) => {
-                  acc[arraylink.linkname] = ++acc[arraylink.linkname] || 0;
-                  return acc;
-                }, {});
-                
-                 duplicados = arraylink.filter( (arraylink) => {
-                  return busqueda[arraylink.linkname];
-                });
-
                 console.log('total: ',arraylink.length)
                 console.log('unique: ' ,arraylink.length - duplicados.length )
               }
@@ -78,16 +78,7 @@ const mdLinks = (path, options) => {
 
               if(options.validate && options.stats){
 
-                const busqueda = arraylink.reduce((acc, arraylink) => {
-                  acc[arraylink.linkname] = ++acc[arraylink.linkname] || 0;
-                  return acc;
-                }, {});
-                
-                 duplicados = arraylink.filter( (arraylink) => {
-                  return busqueda[arraylink.linkname];
-                });
-                
-              
+             
 
                 arraylink.forEach(element => {
                   if (element.status) {

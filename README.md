@@ -27,9 +27,9 @@ al utilizar la libreria se le deberia mostrar asi.
 ![ejemplo](validate.png)
 ![ejemplo](stats.png)
 
-## 3. Objetivos de aprendizaje
+## Diagrama de flujo
+![ejemplo](diagrama.png)
 
-Reflexiona y luego marca los objetivos que has llegado a entender y aplicar en tu proyecto. Piensa en eso al decidir tu estrategia de trabajo.
 
 ### JavaScript
 

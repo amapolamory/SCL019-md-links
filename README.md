@@ -12,11 +12,11 @@ Librería npm diseñada para obtener links de un archivo y examinarlos.
 
 Es una herramienta de comando CLI instalable desde npm sus funciones son validar links y tambien sacar su status.
 al utilizar la libreria se le deberia mostrar asi.
-![ejemplo](validate.png)
-![ejemplo](stats.png)
+![ejemplo](C:\Users\Amapola\OneDrive\Escritorio\MDlinks\SCL019-md-links\img\validate.png)
+![ejemplo](C:\Users\Amapola\OneDrive\Escritorio\MDlinks\SCL019-md-links\img\stats.png)
 
 ## Diagrama de flujo
-![ejemplo](diagrama.png)
+![ejemplo](C:\Users\Amapola\OneDrive\Escritorio\MDlinks\SCL019-md-links\img\diagrama.jpg)
 
 
 ## Creadora 

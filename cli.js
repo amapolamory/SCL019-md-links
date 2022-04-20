@@ -1,7 +1,7 @@
 const {mdLinks } = require ('./index.js');
 const main = require('./main.js')
 const index = require('./index.js')
-var args = process.argv;
+var args = process.argv;//argv es el argument value
 
 // console.log('hola', args);
 console.log('--------------------Bienvenido--------------------');
@@ -10,7 +10,7 @@ console.log('--------------------Bienvenido--------------------');
 const options = {};
 // let path se parara la ruta
 let path = '';
-if (args.some((x) => x === '--validate')) {
+if (args.some((x) => x === '--validate')) {//some testea si almenos n objeto del array pasa los requerimientos
     options.validate = true;
   }
   if (args.some((x) => x === '--stats')) {

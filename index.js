@@ -14,33 +14,33 @@ const mdLinks = (path, options) => {
 
     if (main.existence(path)) {
 
-      path = main.relToAbs(path);
+      path = main.relToAbs(path);// pasa ña ruta a absoluta
 
-      if (main.isFile(path)) {
+      if (main.isFile(path)) {// verifica si es un archivo
 
-        if (main.extensionValid(path)) {
+        if (main.extensionValid(path)) {// verifica que la extension sea md
 
-          const data = main.readFile(path);
+          const data = main.readFile(path);// lee todo el archivo e incluye el array de links
           main.getLinks(data, path)
             .then((arrayLinks) => {
               totalLinks = arrayLinks.length
 
               arrayLinks.forEach(element => {
-                links.push(element.href)
+                links.push(element.href)// agrega los links al array
               });
 
 
 
               const promiseArr = links.map((url) => main.validateLinks(url).then((status) => {
-                arraylink.push(status);
+                arraylink.push(status);// map crea el nuevo array de links que queda guaradado en arraylink 
 
                 const busqueda = arraylink.reduce((acc, arraylink) => {
                   acc[arraylink.linkname] = ++acc[arraylink.linkname] || 0;
-                  return acc;
+                  return acc;// reduce devuelve un resultado de un solo valor 
                 }, {});
                 
                  duplicados = arraylink.filter( (arraylink) => {
-                  return busqueda[arraylink.linkname];
+                  return busqueda[arraylink.linkname];//esta constante permite encontrar cuales son los links unicos
                 });
 
                 if (options.validate && !options.stats) {
@@ -58,7 +58,7 @@ const mdLinks = (path, options) => {
                   console.log('La ruta  no existe'.bgRed);
                   console.log(err);
                 }));
-              return Promise.all(promiseArr);
+              return Promise.all(promiseArr); //devuelve todas las promesas 
 
 
 

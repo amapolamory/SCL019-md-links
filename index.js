@@ -64,11 +64,10 @@ const mdLinks = (path, options) => {
 
 
             }).then(() => {
-              if(options.validate && !options.stats){
+              if(options.validate && !options.stats){// si solo es validate, se muestra una tabla con los links
                 console.table(arraylink);
               }
-              if (!options.validate && options.stats) {
-
+              if (!options.validate && options.stats) {// si solo es stats nos da el total de links y los links unicos
                 console.log('total: ',arraylink.length)
                 console.log('unique: ' ,arraylink.length - duplicados.length )
               }
@@ -76,7 +75,7 @@ const mdLinks = (path, options) => {
               
               }).then(()=>{
 
-              if(options.validate && options.stats){
+              if(options.validate && options.stats){// si es ambas opciones muestra los liks rotos los links totales y links unicos
 
              
 

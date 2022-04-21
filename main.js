@@ -7,7 +7,7 @@ let { lstatSync, existsSync } = require('fs');
 
 
 //verifica si existe la ruta ingresada
-const existence = (route) => existsSync(route);
+const existence = (route) => existsSync(route); 
 // transforma la ruta relativa a absoluta
 const relToAbs = (route) => (path.isAbsolute(route) ? route : path.resolve(route));
 
@@ -25,13 +25,13 @@ const extensionValid = (route) => {
 };
 //funcion para validar el documento
 const readFile = (files) => {
-    try {
+    try {// señala un bloque de instrucciones a intentar
         console.log("files", files)
         const data = fs.readFileSync(files, "utf8");
         return data
     } 
 
-    catch (e) {
+    catch (e) {// se le da una instruccion en caso de que pase algo distinto al catch
         throw new Error('Documento no válido', e)
     }
 };
